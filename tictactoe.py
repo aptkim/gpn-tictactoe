@@ -27,10 +27,10 @@ current_symbol = "0"
 # Task 7.1 (Counting turns)
 turns = 0
 # Task 8.1 (Watching for a winner)
-game_won = "no"
+game_won = False
 
 # Task 7.2 & 8.2
-while turns < 9 and game_won == "no":
+while turns < 9 and game_won == False:
     # Task 5.3 (Ask what square they want to take)
     if current_player == player0:
         print(current_player + " it's your turn!")
@@ -69,7 +69,7 @@ while turns < 9 and game_won == "no":
         or grid_list[0] == grid_list[4] and grid_list[4] == grid_list[8]
         or grid_list[2] == grid_list[4] and grid_list[4] == grid_list[6]):
 
-        game_won = "yes"
+        game_won = True
         # Task 9.1 (Defining the winner)
         winning_player = current_player
 
@@ -85,7 +85,7 @@ while turns < 9 and game_won == "no":
     turns = turns + 1
 
 # Task 9.2 (Annoucing the results)
-if game_won == "yes":
+if game_won == True:
     if winning_player == player0:
         print("Congratulations!")
         print(winning_player + ", you won!")
