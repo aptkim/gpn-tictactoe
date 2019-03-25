@@ -9,13 +9,16 @@ grid_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 available_squares = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 # Task 4.1 (Smarter printer)
-print("-------------")
-print("| " + grid_list[0] + " | " + grid_list[1] + " | " + grid_list[2] + " |")
-print("-------------")
-print("| " + grid_list[3] + " | " + grid_list[4] + " | " + grid_list[5] + " |")
-print("-------------")
-print("| " + grid_list[6] + " | " + grid_list[7] + " | " + grid_list[8] + " |")
-print("-------------")
+def print_grid(grid_list):
+    print("-------------")
+    print("| " + grid_list[0] + " | " + grid_list[1] + " | " + grid_list[2] + " |")
+    print("-------------")
+    print("| " + grid_list[3] + " | " + grid_list[4] + " | " + grid_list[5] + " |")
+    print("-------------")
+    print("| " + grid_list[6] + " | " + grid_list[7] + " | " + grid_list[8] + " |")
+    print("-------------")
+
+print_grid(grid_list)
 
 # Task 5.1 & 5.2 (First turn)
 current_player = player0
@@ -54,13 +57,7 @@ while turns < 9 and game_won == "no":
     grid_list[grid_list_item] = current_symbol
 
     # Task 5.8 (Print the grid again)
-    print("-------------")
-    print("| " + grid_list[0] + " | " + grid_list[1] + " | " + grid_list[2] + " |")
-    print("-------------")
-    print("| " + grid_list[3] + " | " + grid_list[4] + " | " + grid_list[5] + " |")
-    print("-------------")
-    print("| " + grid_list[6] + " | " + grid_list[7] + " | " + grid_list[8] + " |")
-    print("-------------")
+    print_grid(grid_list)
 
     # 8.4 & 8.5 (Check for the winner - if statements)
     if (grid_list[0] == grid_list[1] and grid_list[1] == grid_list[2]
