@@ -41,9 +41,9 @@ def choose_computer_move(grid_list, available_squares):
     return available_squares[0]
 
 # Exercsie 2.1 (Storing players' names)
-player0 = input("Who will be naughts? ")
+human_player = input("Who will be naughts? ")
 print("The computer will be crosses!")
-print("Let's play tic tac toe " + player0 + " vs the computer!")
+print("Let's play tic tac toe " + human_player + " vs the computer!")
 
 # Task 3.1 & 3.2 (Storing the game)
 grid_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -53,7 +53,6 @@ available_squares = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 print_grid(grid_list)
 
 # Task 5.1 & 5.2 (First turn)
-current_player = player0
 current_symbol = "0"
 
 # Task 7.1 (Counting turns)
@@ -64,8 +63,8 @@ game_won = False
 # Task 7.2 & 8.2
 while turns < 9 and game_won == False:
     # Task 5.3 (Ask what square they want to take)
-    if current_player == player0:
-        print(current_player + " it's your turn!")
+    if current_symbol == "0":
+        print(human_player + " it's your turn!")
         print("The available squares are:")
         print(available_squares)
         input_square = input("Which square would you like? ")
@@ -73,9 +72,10 @@ while turns < 9 and game_won == False:
         #Validating the input square
         while input_square not in available_squares:
             print("Square " + input_square + " is not one of the available squares! Please try again.")
-            print("It's still " + current_player + "'s turn.")
+            print("It's still " + human_player + "'s turn.")
             input_square = input("what square would you like out of " + ", ".join(available_squares) + " ?\n")
     else:
+        print("It's the computer's turn...")
         input_square = choose_computer_move(grid_list, available_squares)
         print("The computer player has chosen square " + input_square)
 
@@ -91,14 +91,12 @@ while turns < 9 and game_won == False:
     
     # Task 9.1 (Defining the winner)
     if game_won == True:
-        winning_player = current_player
+        winning_symbol = current_symbol
 
-    # Task 6.1 (Changing turns - defaults to Player0)
-    if current_player == player0:
-        current_player = "computer"
+    # Task 6.1 (Changing turns - defaults to naughts)
+    if current_symbol == "0":
         current_symbol = "X"
     else:
-        current_player = player0
         current_symbol = "0"
 
     # Task 7.3
@@ -106,9 +104,9 @@ while turns < 9 and game_won == False:
 
 # Task 9.2 (Annoucing the results)
 if game_won == True:
-    if winning_player == player0:
+    if winning_symbol == "0":
         print("Congratulations!")
-        print(winning_player + ", you won!")
+        print(human_player + ", you won!")
     else:
         print("You've been beaten by the computer!")
 else:
