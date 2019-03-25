@@ -27,6 +27,19 @@ def check_move_for_win(grid_list, square, symbol):
     grid_copy[int(square) - 1] = symbol
     return check_for_winner(grid_copy)
 
+def choose_computer_move(grid_list, available_squares):
+    # Maximise our chance of winning
+    for square in available_squares:
+        if check_move_for_win(grid_list, square, "X"):
+            return square
+
+    # Minimise our chance of losing
+    for square in available_squares:
+        if check_move_for_win(grid_list, square, "0"):
+            return square
+
+    return available_squares[0]
+
 # Exercsie 2.1 (Storing players' names)
 player0 = input("Who will be naughts? ")
 print("The computer will be crosses!")
@@ -63,10 +76,7 @@ while turns < 9 and game_won == False:
             print("It's still " + current_player + "'s turn.")
             input_square = input("what square would you like out of " + ", ".join(available_squares) + " ?\n")
     else:
-        input_square = available_squares[0]
-        for square in available_squares:
-            if check_move_for_win(grid_list, square, current_symbol):
-                input_square = square
+        input_square = choose_computer_move(grid_list, available_squares)
         print("The computer player has chosen square " + input_square)
 
     # Task 5.4 (Update available squares)
