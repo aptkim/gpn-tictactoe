@@ -10,22 +10,28 @@ def print_grid(grid_list):
     print("-------------")
 
 def check_for_winner(grid_list):
-    if (grid_list[0] == grid_list[1] and grid_list[1] == grid_list[2]
-        or grid_list[3] == grid_list[4] and grid_list[4] == grid_list[5]
-        or grid_list[6] == grid_list[7] and grid_list[7] == grid_list[8]
-        or grid_list[0] == grid_list[3] and grid_list[3] == grid_list[6]
-        or grid_list[1] == grid_list[4] and grid_list[4] == grid_list[7]
-        or grid_list[2] == grid_list[5] and grid_list[5] == grid_list[8]
-        or grid_list[0] == grid_list[4] and grid_list[4] == grid_list[8]
-        or grid_list[2] == grid_list[4] and grid_list[4] == grid_list[6]):
-        return True
-    else:
-        return False
+    if grid_list[0] == grid_list[1] and grid_list[1] == grid_list[2]:
+        return grid_list[0]
+    if grid_list[3] == grid_list[4] and grid_list[4] == grid_list[5]:
+        return grid_list[3]
+    if grid_list[6] == grid_list[7] and grid_list[7] == grid_list[8]:
+        return grid_list[6]
+    if grid_list[0] == grid_list[3] and grid_list[3] == grid_list[6]:
+        return grid_list[0]
+    if grid_list[1] == grid_list[4] and grid_list[4] == grid_list[7]:
+        return grid_list[1]
+    if grid_list[2] == grid_list[5] and grid_list[5] == grid_list[8]:
+        return grid_list[2]
+    if grid_list[0] == grid_list[4] and grid_list[4] == grid_list[8]:
+        return grid_list[0]
+    if grid_list[2] == grid_list[4] and grid_list[4] == grid_list[6]:
+        return grid_list[2]
+    return None
 
 def check_move_for_win(grid_list, square, symbol):
     grid_copy = list(grid_list)
     grid_copy[int(square) - 1] = symbol
-    return check_for_winner(grid_copy)
+    return check_for_winner(grid_copy) == symbol
 
 def choose_computer_move(grid_list, available_squares):
     # Maximise our chance of winning
@@ -87,11 +93,11 @@ while turns < 9 and game_won == False:
     print_grid(grid_list)
 
     # 8.4 & 8.5 (Check for the winner - function)
-    game_won = check_for_winner(grid_list)
-    
     # Task 9.1 (Defining the winner)
-    if game_won == True:
-        winning_symbol = current_symbol
+    winning_symbol = check_for_winner(grid_list)
+    if winning_symbol:
+        game_won = True
+        break
 
     # Task 6.1 (Changing turns - defaults to naughts)
     if current_symbol == "0":
