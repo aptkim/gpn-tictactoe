@@ -28,25 +28,47 @@ def check_for_winner(grid_list):
         return grid_list[2]
     return None
 
-def check_move_for_win(grid_list, square, symbol):
-    # Try out move and see if it will win
-    grid_list[int(square) - 1] = symbol
-    result = (check_for_winner(grid_list) == symbol)
-    # Restore the board
-    grid_list[int(square) - 1] = square
+def minimax(grid_list, current_symbol):
+    # Check if this grid has a winner
+    winning_symbol = check_for_winner(grid_list)
+    if winning_symbol == "X":
+        return 10
+    elif winning_symbol == "0":
+        return -10
 
+    # No winner and no more moves means a draw
+    if grid_list.count("0") + grid_list.count("X") == 9:
+        return 0
+    
+    if current_symbol == "X":
+        best_max = -10
+        for square in grid_list:
+            if square != "0" and square != "X":
+                grid_list[int(square) - 1] = current_symbol
+                best_max = max(best_max, minimax(grid_list, "0"))
+                grid_list[int(square) - 1] = square
+        return best_max
+    else:
+        best_min = 10
+        for square in grid_list:
+            if square != "0" and square != "X":
+                grid_list[int(square) - 1] = current_symbol
+                best_min = min(best_min, minimax(grid_list, "X"))
+                grid_list[int(square) - 1] = square
+        return best_min
+    
 def choose_computer_move(grid_list, available_squares):
-    # Maximise our chance of winning
+    minimax_scores = {}
+    
     for square in available_squares:
-        if check_move_for_win(grid_list, square, "X"):
-            return square
-
-    # Minimise our chance of losing
-    for square in available_squares:
-        if check_move_for_win(grid_list, square, "0"):
-            return square
-
-    return available_squares[0]
+        grid_list[int(square) - 1] = "X"
+        minimax_scores[square] = minimax(grid_list, "0")
+        grid_list[int(square) - 1] = square
+    
+    #print(minimax_scores)
+    
+    # Should probably use a more obvious/less Pythonic way of selecting...
+    return max(minimax_scores, key=minimax_scores.get)
 
 # Exercsie 2.1 (Storing players' names)
 human_player = input("Who will be naughts? ")
