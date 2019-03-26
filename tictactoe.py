@@ -29,9 +29,11 @@ def check_for_winner(grid_list):
     return None
 
 def check_move_for_win(grid_list, square, symbol):
-    grid_copy = list(grid_list)
-    grid_copy[int(square) - 1] = symbol
-    return check_for_winner(grid_copy) == symbol
+    # Try out move and see if it will win
+    grid_list[int(square) - 1] = symbol
+    result = (check_for_winner(grid_list) == symbol)
+    # Restore the board
+    grid_list[int(square) - 1] = square
 
 def choose_computer_move(grid_list, available_squares):
     # Maximise our chance of winning
