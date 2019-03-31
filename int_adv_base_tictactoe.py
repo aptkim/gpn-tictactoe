@@ -39,6 +39,7 @@ while not game_over:
     
     while chosen_square not in available_squares:
         print("That square is not available! Please try again.")
+        print("The available squares are:", available_squares)
         chosen_square = input("Where do you want to play? ")
 
     available_squares.remove(chosen_square)
