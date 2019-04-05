@@ -35,9 +35,8 @@ def evaluate_board(board_list, symbol):
         # Game tied
         return 0
     
-    # Let's start by ruling out moves that will let our opponent win...
     if symbol == "X":
-        best_outcome = 1 # assume the "worst case" until we get a "better" concrete result
+        best_outcome = 1
         
         for index, square in enumerate(board_list):
             if square == " ":
@@ -50,8 +49,18 @@ def evaluate_board(board_list, symbol):
 
         return best_outcome
     else:
-        # There's still moves... How do we score that!?
-        return 0
+        best_outcome = -1
+        
+        for index, square in enumerate(board_list):
+            if square == " ":
+                board_list[index] = "X"
+                outcome = evaluate_board(board_list, "X")
+                board_list[index] = " "
+
+                if outcome > best_outcome:
+                    best_outcome = outcome
+
+        return best_outcome
 
 
 def choose_computer_move(board_list, available_squares): 
