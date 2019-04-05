@@ -39,6 +39,22 @@ def evaluate_board(board_list):
     return 0
 
 
+def choose_computer_move(board_list, available_squares): 
+    best_move = available_squares[0]
+    best_outcome = -1
+    
+    for square in available_squares:
+        board_list[int(square) - 1] = "X"
+        outcome = evaluate_board(board_list)
+        board_list[int(square) - 1] = " "
+        
+        if outcome > best_outcome:
+            best_move = square
+            best_outcome = outcome
+    
+    return best_move
+
+
 # Starting the game
 board_list = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 print("Are you ready to play tic tac toe?")
@@ -63,7 +79,7 @@ while not game_over:
             chosen_square = input("Where do you want to play? ")
     else:
         # Computer players turn
-        chosen_square = available_squares[0]
+        chosen_square = choose_computer_move(board_list, available_squares)
 
     available_squares.remove(chosen_square)
     square_index = int(chosen_square) - 1
