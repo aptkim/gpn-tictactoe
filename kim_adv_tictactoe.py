@@ -21,7 +21,7 @@ def check_winner(board_list):
     return None
 
 
-def evaluate_board(board_list):
+def evaluate_board(board_list, symbol):
     winner = check_winner(board_list)
     
     if winner == "X":
@@ -35,8 +35,23 @@ def evaluate_board(board_list):
         # Game tied
         return 0
     
-    # There's still moves... How do we score that!?
-    return 0
+    # Let's start by ruling out moves that will let our opponent win...
+    if symbol == "X":
+        best_outcome = 1 # assume the "worst case" until we get a "better" concrete result
+        
+        for index, square in enumerate(board_list):
+            if square == " ":
+                board_list[index] = "O"
+                outcome = evaluate_board(board_list, "O")
+                board_list[index] = " "
+
+                if outcome < best_outcome:
+                    best_outcome = outcome
+
+        return best_outcome
+    else:
+        # There's still moves... How do we score that!?
+        return 0
 
 
 def choose_computer_move(board_list, available_squares): 
@@ -45,7 +60,7 @@ def choose_computer_move(board_list, available_squares):
     
     for square in available_squares:
         board_list[int(square) - 1] = "X"
-        outcome = evaluate_board(board_list)
+        outcome = evaluate_board(board_list, symbol)
         board_list[int(square) - 1] = " "
         
         if outcome > best_outcome:
@@ -86,7 +101,7 @@ while not game_over:
     board_list[square_index] = symbol
 
     board_print(board_list)
-    print("Computer's evaluation of the current board:", evaluate_board(board_list))
+    print("Computer's evaluation of the current board:", evaluate_board(board_list, symbol))
 
     # Checking the winner
     game_won = check_winner(board_list)
