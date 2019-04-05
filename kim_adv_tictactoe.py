@@ -35,12 +35,17 @@ while not game_over:
     # symboling the board
     print("It's " + symbol + "'s turn!")
 
-    chosen_square = input("Where do you want to play? ")
-    
-    while chosen_square not in available_squares:
-        print("That square is not available! Please try again.")
-        print("The available squares are:", available_squares)
+    if symbol == "O":
+        # Human players turn
         chosen_square = input("Where do you want to play? ")
+
+        while chosen_square not in available_squares:
+            print("That square is not available! Please try again.")
+            print("The available squares are:", available_squares)
+            chosen_square = input("Where do you want to play? ")
+    else:
+        # Computer players turn
+        chosen_square = available_squares[0]
 
     available_squares.remove(chosen_square)
     square_index = int(chosen_square) - 1
