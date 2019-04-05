@@ -17,8 +17,26 @@ def check_winner(board_list):
         combo_square2 = combo[1]
         combo_square3 = combo[2]
         if board_list[combo_square1] == board_list[combo_square2] == board_list[combo_square3] != " ":
-            return True
-    return False
+            return board_list[combo_square1]
+    return None
+
+
+def evaluate_board(board_list):
+    winner = check_winner(board_list)
+    
+    if winner == "X":
+        # Computer won
+        return 1
+    elif winner == "O":
+        # Human won
+        return -1
+    
+    if " " not in board_list:
+        # Game tied
+        return 0
+    
+    # There's still moves... How do we score that!?
+    return 0
 
 
 # Starting the game
@@ -52,11 +70,12 @@ while not game_over:
     board_list[square_index] = symbol
 
     board_print(board_list)
+    print("Computer's evaluation of the current board:", evaluate_board(board_list))
 
     # Checking the winner
     game_won = check_winner(board_list)
     if game_won:
-        print("The winner is " + symbol + " !")
+        print("The winner is " + game_won + " !")
         game_over = True
     elif turn_count == 9:
         print("It's a tie!")
