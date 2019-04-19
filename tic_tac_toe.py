@@ -24,7 +24,18 @@ def get_available_squares(board):
     return available_squares
 
 def get_comp_move(board):
+    winning_moves = []
     available_squares = get_available_squares(board)
+    
+    for square in available_squares:
+        board[square] = comp_symbol
+        if check_winner(board):
+            winning_moves.append(square)
+        board[square] = " "
+
+    if len(winning_moves) > 0:
+        return winning_moves[0]
+
     return random.choice(available_squares)
 
 def check_winner(board):
