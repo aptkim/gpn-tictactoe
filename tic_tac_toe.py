@@ -11,7 +11,7 @@ def check_winner(board):
         symbol_1 = board[combo[1]]
         symbol_2 = board[combo[2]]
 
-        if symbol_0 == symbol_1 == symbol_2:
+        if symbol_0 == symbol_1 == symbol_2 and symbol_0 != " ":
             return True
 
     return False
@@ -38,6 +38,10 @@ while not game_over:
 
     board[square_index] = symbol
     print_board(board)
+    
+    game_over = check_winner(board)
+    if game_over:
+        print("Game over! The winner is", symbol)
 
     if symbol == "O":
         symbol = "X"
