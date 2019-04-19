@@ -1,5 +1,7 @@
 # Kim Apted is testing the intermediate work book
 
+import random
+
 winning_combos = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -26,22 +28,44 @@ def print_board(board):
     print("-------------")
 
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+taken_places = []
 game_over = False
 
-symbol = "O"
+po_name = input("Who will be naughts? ")
+px_name = input("Who will be crosses? ")
+
+symbol = random.choice(["O", "X"])
 
 while not game_over:
-    print("It's {}'s turn!".format(symbol))
+    if symbol == "O":
+        player_turn = po_name
+    elif symbol == "X":
+        player_turn = px_name
 
-    square = input("Which square do you want to choose? ")
-    square_index = int(square)
+    print("It's {}'s turn!".format(player_turn))
+    
+    if player_turn == "computer":
+        square_index = random.randrange(9)
+        while square_index in taken_places:
+            square_index = random.randrange(9)
+    else:
+        square = input("Where do you want to put your {}? ".format(symbol))
+        square_index = int(square)
 
+    if square_index in taken_places:
+        print("You can't place a symbol on that tile, it's already taken!")
+        continue
+
+    taken_places.append(square_index)
     board[square_index] = symbol
     print_board(board)
-    
+
     game_over = check_winner(board)
     if game_over:
         print("Game over! The winner is", symbol)
+    elif len(taken_places) == 9:
+        print("Game over! It's a tie!")
+        break
 
     if symbol == "O":
         symbol = "X"
