@@ -32,24 +32,26 @@ game_over = False
 symbol = "O"
 
 while not game_over:
-    while True:
-        print("It's {}'s turn!".format(symbol))
-        square = input("Which square do you want to choose? ")
-        square_index = int(square)
+    print("It's {}'s turn!".format(symbol))
+    square = input("Which square do you want to choose? ")
+    square_index = int(square)
 
-        if square_index in taken_places:
-            print("You can't place a symbol on that tile, it's already taken!")
-            continue
+    if square_index in taken_places:
+        print("You can't place a symbol on that tile, it's already taken!")
+        continue
 
-        taken_places.append(square_index)
-        board[square_index] = symbol
-        print_board(board)
+    taken_places.append(square_index)
+    board[square_index] = symbol
+    print_board(board)
 
-        game_over = check_winner(board)
-        if game_over:
-            print("Game over! The winner is", symbol)
+    game_over = check_winner(board)
+    if game_over:
+        print("Game over! The winner is", symbol)
+    elif len(taken_places) == 9:
+        print("Game over! It's a tie!")
+        break
 
-        if symbol == "O":
-            symbol = "X"
-        elif symbol == "X":
-            symbol = "O"
+    if symbol == "O":
+        symbol = "X"
+    elif symbol == "X":
+        symbol = "O"
