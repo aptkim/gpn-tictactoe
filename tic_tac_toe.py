@@ -10,6 +10,23 @@ winning_combos = [
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6]]
 
+def get_other_symbol(symbol):
+    if symbol == comp_symbol:
+        return human_symbol
+    else:
+        return comp_symbol
+
+def get_available_squares(board):
+    available_squares = []
+    for i, symbol in enumerate(board):
+        if symbol == " ":
+            available_squares.append(i)
+    return available_squares
+
+def get_comp_move(board):
+    available_squares = get_available_squares(board)
+    return random.choice(available_squares)
+
 def check_winner(board):
     for combo in winning_combos:
         symbol_0 = board[combo[0]]
@@ -42,11 +59,7 @@ while not game_over:
         square = input("Which square do you want to choose? ")
         square_index = int(square)
     else:
-        available_squares = []
-        for index, square in enumerate(board):
-            if square == " ":
-                available_squares.append(index)
-        square_index = random.choice(available_squares)
+        square_index = get_comp_move(board)
 
     board[square_index] = symbol
     print_board(board)
@@ -55,7 +68,4 @@ while not game_over:
     if game_over:
         print("Game over! The winner is", symbol)
 
-    if symbol == "O":
-        symbol = "X"
-    elif symbol == "X":
-        symbol = "O"
+    symbol = get_other_symbol(symbol)
