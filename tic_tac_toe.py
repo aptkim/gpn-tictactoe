@@ -1,5 +1,10 @@
 # Kim Apted is testing the intermediate work book
 
+import random
+
+comp_symbol = "X"
+human_symbol = "O"
+
 winning_combos = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -33,8 +38,15 @@ symbol = "O"
 while not game_over:
     print("It's {}'s turn!".format(symbol))
 
-    square = input("Which square do you want to choose? ")
-    square_index = int(square)
+    if symbol == human_symbol:
+        square = input("Which square do you want to choose? ")
+        square_index = int(square)
+    else:
+        available_squares = []
+        for index, square in enumerate(board):
+            if square == " ":
+                available_squares.append(index)
+        square_index = random.choice(available_squares)
 
     board[square_index] = symbol
     print_board(board)
