@@ -13,9 +13,15 @@ board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 print_board(board)
 
 symbol = "O"
+print("It's {}'s turn!".format(symbol))
 
 square = input("Which square do you want to choose? ")
 square_index = int(square)
 
 board[square_index] = symbol
 print_board(board)
+
+if symbol == "O":
+    symbol = "X"
+elif symbol == "X":
+    symbol = "O"
