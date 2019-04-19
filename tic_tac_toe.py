@@ -1,5 +1,7 @@
 # Kim Apted is testing the intermediate work book
 
+import random
+
 winning_combos = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -29,11 +31,20 @@ board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 taken_places = []
 game_over = False
 
-symbol = "O"
+po_name = input("Who will be naughts? ")
+px_name = input("Who will be crosses? ")
+
+symbol = random.choice(["O", "X"])
 
 while not game_over:
-    print("It's {}'s turn!".format(symbol))
-    square = input("Which square do you want to choose? ")
+    if symbol == "O":
+        player_turn = po_name
+    elif symbol == "X":
+        player_turn = px_name
+
+    print("It's {}'s turn!".format(player_turn))
+
+    square = input("Where do you want to put your {}? ".format(symbol))
     square_index = int(square)
 
     if square_index in taken_places:
