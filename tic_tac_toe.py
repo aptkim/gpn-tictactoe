@@ -10,18 +10,20 @@ def print_board(board):
     print("-------------")
 
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-print_board(board)
+game_over = False
 
 symbol = "O"
-print("It's {}'s turn!".format(symbol))
 
-square = input("Which square do you want to choose? ")
-square_index = int(square)
+while not game_over:
+    print("It's {}'s turn!".format(symbol))
 
-board[square_index] = symbol
-print_board(board)
+    square = input("Which square do you want to choose? ")
+    square_index = int(square)
 
-if symbol == "O":
-    symbol = "X"
-elif symbol == "X":
-    symbol = "O"
+    board[square_index] = symbol
+    print_board(board)
+
+    if symbol == "O":
+        symbol = "X"
+    elif symbol == "X":
+        symbol = "O"
