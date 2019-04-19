@@ -43,9 +43,14 @@ while not game_over:
         player_turn = px_name
 
     print("It's {}'s turn!".format(player_turn))
-
-    square = input("Where do you want to put your {}? ".format(symbol))
-    square_index = int(square)
+    
+    if player_turn == "computer":
+        square_index = random.randrange(9)
+        while square_index in taken_places:
+            square_index = random.randrange(9)
+    else:
+        square = input("Where do you want to put your {}? ".format(symbol))
+        square_index = int(square)
 
     if square_index in taken_places:
         print("You can't place a symbol on that tile, it's already taken!")
