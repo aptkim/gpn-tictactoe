@@ -2,6 +2,13 @@
 
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
+symbol = "O"
+
+square = input("Which square do you want to choose? ")
+square_index = int(square)
+
+board[square_index] = symbol
+
 print("-------------")
 print("| {} | {} | {} |".format(board[0], board[1], board[2]))
 print("-------------")
