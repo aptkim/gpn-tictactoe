@@ -1,5 +1,10 @@
 # Kim Apted is testing the advanced work book
 
+import random
+
+comp_symbol = "X"
+human_symbol = "O"
+
 winning_combos = [[0, 1, 2], 
                   [3, 4, 5], 
                   [6, 7, 8],
@@ -40,9 +45,21 @@ counter = 0
 
 while not game_over:
     print("It's {}'s turn!".format(symbol))
+    
+    free_squares = []
+    for index, square in enumerate(board):
+       if square == " ":
+           free_squares.append(index)
 
-    square = input("Which square do you want to choose? ")
-    square_index = int(square)
+    if symbol == human_symbol:
+        square = input("Which square do you want to choose? ")
+        square_index = int(square)
+        
+        if square_index not in free_squares:
+            print("You can't place a symbol on that tile, it's already taken!")
+            continue
+    else:
+        square_index = random.choice(free_squares)
 
     board[square_index] = symbol
     print_board(board)
@@ -51,8 +68,7 @@ while not game_over:
     game_over = check_winner(board)
     if game_over:
         print("Game over! The winner is", symbol)
-        
-    if counter == 9:
+    elif counter == 9:
         print("Game over! It's a tie!")
         break
     
