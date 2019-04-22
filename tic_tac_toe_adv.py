@@ -14,6 +14,23 @@ winning_combos = [[0, 1, 2],
                   [0, 4, 8],
                   [2, 4, 6]]
 
+def get_free_squares(board):
+    free_squares = []
+    for index, symbol in enumerate(board):
+        if symbol == " ":
+            free_squares.append(index)
+    return free_squares
+
+def get_comp_move(board):
+    free_squares = get_free_squares(board)
+    return random.choice(free_squares)
+
+def get_other_symbol(symbol):
+    if symbol == comp_symbol:
+        return human_symbol
+    else:
+        return comp_symbol
+
 def check_winner(board):
     for combo in winning_combos:
         combo_part_0 = combo[0]
@@ -45,21 +62,16 @@ counter = 0
 
 while not game_over:
     print("It's {}'s turn!".format(symbol))
-    
-    free_squares = []
-    for index, square in enumerate(board):
-       if square == " ":
-           free_squares.append(index)
 
     if symbol == human_symbol:
         square = input("Which square do you want to choose? ")
         square_index = int(square)
         
-        if square_index not in free_squares:
+        if square_index not in get_free_squares(board):
             print("You can't place a symbol on that tile, it's already taken!")
             continue
     else:
-        square_index = random.choice(free_squares)
+        square_index = get_comp_move(board)
 
     board[square_index] = symbol
     print_board(board)
@@ -72,7 +84,4 @@ while not game_over:
         print("Game over! It's a tie!")
         break
     
-    if symbol == "O":
-        symbol = "X"
-    elif symbol == "X":
-        symbol = "O"
+    symbol = get_other_symbol(symbol)
