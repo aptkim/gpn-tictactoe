@@ -45,7 +45,11 @@ while not game_over:
 
     board[square_index] = symbol
     print_board(board)
-
+    
+    game_over = check_winner(board)
+    if game_over:
+        print("Game over! The winner is", symbol)
+    
     if symbol == "O":
         symbol = "X"
     elif symbol == "X":
