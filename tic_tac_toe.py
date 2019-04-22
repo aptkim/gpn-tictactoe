@@ -36,6 +36,7 @@ board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 game_over = False
 
 symbol = "O"
+counter = 0
 
 while not game_over:
     print("It's {}'s turn!".format(symbol))
@@ -45,10 +46,15 @@ while not game_over:
 
     board[square_index] = symbol
     print_board(board)
+    counter += 1
     
     game_over = check_winner(board)
     if game_over:
         print("Game over! The winner is", symbol)
+        
+    if counter == 9:
+        print("Game over! It's a tie!")
+        break
     
     if symbol == "O":
         symbol = "X"
