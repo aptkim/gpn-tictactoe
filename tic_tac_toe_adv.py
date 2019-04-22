@@ -23,7 +23,18 @@ def get_free_squares(board):
 
 def get_comp_move(board):
     free_squares = get_free_squares(board)
-    return random.choice(free_squares)
+    
+    winning_moves = []
+    for square in free_squares:
+        board[square] = comp_symbol
+        if check_winner(board):
+            winning_moves.append(square)
+        board[square] = " "
+
+    if len(winning_moves) > 0:
+        return winning_moves[0]
+    else:
+        return random.choice(free_squares)
 
 def get_other_symbol(symbol):
     if symbol == comp_symbol:
