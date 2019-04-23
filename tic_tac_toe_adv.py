@@ -14,6 +14,16 @@ winning_combos = [[0, 1, 2],
                   [0, 4, 8],
                   [2, 4, 6]]
 
+def best_outcome_for_symbol(player_symbol, outcomes):
+    opponent_symbol = get_other_symbol(player_symbol)
+
+    if player_symbol in outcomes:
+        return player_symbol
+    elif "T" in outcomes:
+        return "T"
+    else:
+        return opponent_symbol
+
 def get_free_squares(board):
     free_squares = []
     for index, symbol in enumerate(board):
