@@ -31,6 +31,25 @@ def get_free_squares(board):
             free_squares.append(index)
     return free_squares
 
+def get_move_outcomes(player_symbol, board):
+    free_squares = get_free_squares(board)
+    
+    if len(free_squares) == 0:
+        return "T"
+    
+    outcomes = []
+    for square in free_squares:
+        board[square] = player_symbol
+        if check_winner(board):
+            outcomes.append(player_symbol)
+        else:
+            opponent_symbol = get_other_symbol(player_symbol)
+            best_outcome = get_move_outcomes(opponent_symbol, board)
+            outcomes.append(best_outcome)
+        board[square] = " "
+
+    return best_outcome_for_symbol(player_symbol, outcomes)
+
 def get_comp_move(board):
     free_squares = get_free_squares(board)
     
