@@ -56,10 +56,13 @@ def get_comp_move(board):
     outcomes = {comp_symbol: [], "T": [], human_symbol: []}
     for square in free_squares:
         board[square] = comp_symbol
-        result = get_move_outcomes(human_symbol, board)
-        outcomes[result].append(square)
+        if check_winner(board):
+            outcomes[comp_symbol].append(square)
+        else:
+            result = get_move_outcomes(human_symbol, board)
+            outcomes[result].append(square)
         board[square] = " "
-
+    
     if len(outcomes[comp_symbol]) > 0:
         return outcomes[comp_symbol][0]
     elif len(outcomes["T"]) > 0:
