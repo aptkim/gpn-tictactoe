@@ -54,6 +54,9 @@ def get_comp_move(board):
     free_squares = get_free_squares(board)
     
     winning_moves = []
+    tied_moves = []
+    losing_moves = []
+    
     for square in free_squares:
         board[square] = comp_symbol
         if check_winner(board):
@@ -63,7 +66,24 @@ def get_comp_move(board):
     if len(winning_moves) > 0:
         return winning_moves[0]
     else:
-        return random.choice(free_squares)
+        for square in free_squares:
+            board[square] = comp_symbol
+            result = get_move_outcomes(human_symbol, board)
+            if result == comp_symbol:
+                winning_moves.append(square)
+            elif result == "T":
+                tied_moves.append(square)
+            else:
+                losing_moves.append(square)
+            board[square] = " "
+            
+        if len(winning_moves) > 0:
+            return winning_moves[0]
+        elif len(tied_moves) > 0:
+            return tied_moves[0]
+        else:
+            return losing_moves[0]
+
 
 def get_other_symbol(symbol):
     if symbol == comp_symbol:
